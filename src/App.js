@@ -34,14 +34,13 @@ function App() {
       .addTo(map);
 
       const query = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/walking/${start[0]},${start[1]};${end[0]},${end[1]}?geometries=geojson&access_token=${mapboxgl.accessToken}`,
+        `https://api.mapbox.com/directions/v5/mapbox/walking/${start[0]},${start[1]};${end[0]},${end[1]}?alternatives=true&continue_straight=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${mapboxgl.accessToken}`,
         { method: 'GET' }
       );
       
       const json = await query.json();
       const data = json.routes[0];
       routes.push(...data.geometry.coordinates)
-      console.log(routes, 'route')
       const geojson = {
         type: 'Feature',
         properties: {},
